@@ -1,15 +1,66 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import models.Curso;
+import models.Estudiante;
+import models.Estudiante.Estado;
+import services.GestorAcademico;
+import exceptions.EstudianteYaInscritoException;
+import exceptions.EstudianteNoInscritoEnCursoException;
+
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Crear instancias de Estudiante
+        Estudiante estudiante1 = new Estudiante(1, "Oscar", "Monterroso", LocalDate.of(2006, 4, 23), Estado.MATRICULADO);
+        Estudiante estudiante2 = new Estudiante(2, "Maria", "Monterroso", LocalDate.of(2000, 10, 2), Estado.INACTIVO);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        // Crear instancias de Curso
+        Curso curso1 = new Curso(101, "Programacion", "Curso de Java Springboot", 5, "1.0");
+        Curso curso2 = new Curso(102, "Matematica", "Muchos numeros", 4, "1.1");
+
+        // Instanciar GestorAcademico
+        GestorAcademico gestor = new GestorAcademico();
+
+        // Matricular estudiantes
+        gestor.matricularEstudiante(estudiante1);
+        gestor.matricularEstudiante(estudiante2);
+        gestor.matricularEstudiante(estudiante1); // Intentar matricular nuevamente
+
+        // Agregar cursos
+        gestor.agregarCurso(curso1);
+        gestor.agregarCurso(curso2);
+        gestor.agregarCurso(curso1); // Intentar agregar nuevamente
+
+        // Inscribir estudiantes en cursos
+        try {
+            gestor.inscribirEstudianteCurso(estudiante1, 101);
+            gestor.inscribirEstudianteCurso(estudiante1, 101); // Intentar inscribir nuevamente
+        } catch (EstudianteYaInscritoException e) {
+            System.err.println(e.getMessage());
         }
+
+        try {
+            gestor.inscribirEstudianteCurso(estudiante2, 102);
+        } catch (EstudianteYaInscritoException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // Desinscribir estudiantes de cursos
+        try {
+            gestor.desinscribirEstudianteCurso(1, 101);
+            gestor.desinscribirEstudianteCurso(1, 101); // Intentar desinscribir nuevamente
+        } catch (EstudianteNoInscritoEnCursoException e) {
+            System.err.println(e.getMessage());
+        }
+
+        try {
+            gestor.desinscribirEstudianteCurso(3, 101); // Estudiante no existe
+        } catch (EstudianteNoInscritoEnCursoException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // Listar información
+        gestor.listarEstudiantes();
+        gestor.listarCursos();
+        gestor.listarInscripciones();
     }
 }
