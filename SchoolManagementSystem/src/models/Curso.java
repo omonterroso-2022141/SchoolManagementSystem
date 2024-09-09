@@ -7,6 +7,7 @@ public class Curso {
     private int numeroCreditos;
     private String version;
 
+    // Constructor
     public Curso(int id, String nombre, String descripcion, int numeroCreditos, String version) {
         this.id = id;
         this.nombre = nombre;
@@ -15,41 +16,37 @@ public class Curso {
         this.version = version;
     }
 
-    // Getters and Setters
+    // Getters y Setters
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     public int getNumeroCreditos() {
         return numeroCreditos;
     }
 
-    public void setNumeroCreditos(int numeroCreditos) {
-        this.numeroCreditos = numeroCreditos;
-    }
-
     public String getVersion() {
         return version;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setNumeroCreditos(int numeroCreditos) {
+        this.numeroCreditos = numeroCreditos;
     }
 
     public void setVersion(String version) {
@@ -58,12 +55,7 @@ public class Curso {
 
     @Override
     public String toString() {
-        return "Curso{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", numeroCreditos=" + numeroCreditos +
-                ", version='" + version + '\'' +
-                '}';
+        return "Curso [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", numeroCreditos="
+                + numeroCreditos + ", version=" + version + "]";
     }
 }
